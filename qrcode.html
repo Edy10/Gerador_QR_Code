@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerando QR</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background: #ececec;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container{
+            padding: 40px 60px;
+            background: #fff;
+            display:flex;
+            align-items: center;
+            border:5px solid rgba(180, 190, 190, 0);
+            box-shadow: 0 0 15px rgba(100, 100, 100, 0.3);
+            flex-direction: column;
+        }
+        h3{
+            margin-bottom: 20px;
+        }
+        .input{
+            padding: 12px 20px;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        button{
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            border:0;
+            background:#485696;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        #qr-image{
+            display:none;
+        }
+        img{
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3>Gerador de QR code via API com JavaScript</h3>
+    <input type="text" name="text" id="text" placeholder="Informe um texto..." class="input"/>
+    <button type="button" onclick="generateQR()">Gerar QR</button>
+    <div id="qr-image">
+        <span class="error"></span> <br/>
+        <img src="" id="img" />
+    </div>
+</div>
+</body>
+<script>
+    function generateQR(){
+        document.querySelector("#qr-image").style.display = "block";
+        let QRtext = document.querySelector("#text").value;
+        if(QRtext.trim().length === 0){
+            document.querySelector("#qr-image .error").innerHTML = "Favor digitar um texto";
+            document.querySelector("#img").style.display = "none";
+        }else {
+            document.querySelector("#img").style.display = "block";
+            document.querySelector("#qr-image .error").innerHTML = "";
+            document.querySelector("#img").src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data="+QRtext;
+        }
+    }
+</script>
+</html>
